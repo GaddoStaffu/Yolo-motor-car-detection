@@ -1,0 +1,43 @@
+train: C:/Users/GaddoStaffu/Desktop/VehicleDetection/dataset/train
+val: C:/Users/GaddoStaffu/Desktop/VehicleDetection/dataset/val
+
+nc: 2
+names:
+  - bike
+  - car
+
+roboflow:
+  workspace: nada-majd-e4uhb
+  project: n_o_2
+  version: 21
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/nada-majd-e4uhb/n_o_2/dataset/21
+
+# Enable data augmentation to balance motorcycle instances
+augment: True
+mosaic: 2.0 # Even stronger blending to make motorcycles appear more
+mixup: 0.6 # More blending of motorcycles
+
+# Color Augmentations
+hsv_h: 0.02
+hsv_s: 0.8
+hsv_v: 0.5
+
+# Geometric Augmentations (More aggressive for motorcycles)
+flipud: 0.5
+fliplr: 0.9 # Flip motorcycles more often
+scale: 0.9 # Slightly larger scaling
+shear: 20.0 # Increase shear for motorcycle variations
+translate: 0.4 # More shifting to make motorcycles appear in different places
+
+# Blur & Noise (Minimal, to avoid degrading image quality)
+blur: 0.05
+noise: 0.02
+
+# Occlusion Augmentations (Simulating real-world obstructions)
+cutout: 0.5 # Even more aggressive occlusions for motorcycles
+
+# Auto Weighting (Increase Augmentations Only for Motorcycle)
+class_weights:
+  - 3.0 # Increase bike weighting (car remains at 1.0)
+  - 1.0 # Car remains normal

@@ -4,7 +4,7 @@ import os
 from ultralytics import YOLO
 
 # Load the trained YOLO model
-model = YOLO(r"runs\detect\bounding_box\weights\best.pt")  # Replace with the path to your trained model
+model = YOLO(r"runs\detect\yolov8s-costume-model\weights\best.pt")  # Replace with the path to your trained model
 
 def process_frame(frame):
     results = model(frame)
