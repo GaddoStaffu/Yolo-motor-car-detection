@@ -4,7 +4,7 @@ import os
 from ultralytics import YOLO
 
 # Load the trained YOLO model
-model = YOLO(r"runs\detect\yolov8s-costume-model\weights\best.pt")  # Replace with the path to your trained model
+model = YOLO(r"runs\detect\train\weights\best.pt")  # Replace with the path to your trained model
 
 def process_frame(frame):
     results = model(frame)
@@ -17,10 +17,14 @@ def process_frame(frame):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
     return frame
 
-def process_webcam():
-    capture = cv2.VideoCapture(0)
+def process_webcam(camera_index=0):
+    capture = cv2.VideoCapture(camera_index)
     capture.set(3, 1366)
     capture.set(4, 768)
+    if not capture.isOpened():
+        print(f"Error: Unable to access camera {camera_index}.")
+        return
+    print(f"Using camera {camera_index}. Press 'q' to quit.")
     while True:
         ret, frame = capture.read()
         if not ret:
@@ -60,14 +64,14 @@ def process_images(folder_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--webcam", action="store_true", help="Use webcam for live detection")
+    parser.add_argument("--webcam", type=int, nargs="?", const=0, help="Use webcam for live detection (default: 0)")
     parser.add_argument("--videofile", type=str, help="Path to video file")
     parser.add_argument("--image", type=str, help="Path to an image file")
     parser.add_argument("--images", type=str, help="Path to a folder containing images")
     args = parser.parse_args()
 
-    if args.webcam:
-        process_webcam()
+    if args.webcam is not None:
+        process_webcam(args.webcam)
     elif args.videofile:
         process_video(args.videofile)
     elif args.image:

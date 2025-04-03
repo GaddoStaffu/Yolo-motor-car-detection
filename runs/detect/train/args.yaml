@@ -1,6 +1,6 @@
 task: detect
 mode: train
-model: C:\Users\GaddoStaffu\Desktop\VehicleDetection\yolov8s.pt
+model: C:\Users\GaddoStaffu\Desktop\VehicleDetection\runs\detect\train\weights\best.pt
 data: C:\Users\GaddoStaffu\Desktop\VehicleDetection\dataset\data.yaml
 epochs: 1000
 time: null
@@ -24,7 +24,7 @@ single_cls: false
 rect: false
 cos_lr: false
 close_mosaic: 10
-resume: false
+resume: C:\Users\GaddoStaffu\Desktop\VehicleDetection\runs\detect\train\weights\best.pt
 amp: false
 fraction: 1.0
 profile: false
